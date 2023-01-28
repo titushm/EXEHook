@@ -63,7 +63,7 @@ try:
 	GAME_MEMORY = pymem.Pymem(PROCESS_NAME) # Attach to the game memory so mods have an api to use
 except:
 	print(f"{colorama.Fore.LIGHTBLACK_EX + getTimestamp() + colorama.Fore.LIGHTRED_EX} Cannot find process {PROCESS_NAME}")
-	#exitScript()
+	exitScript()
 print(f"{colorama.Fore.LIGHTBLACK_EX + getTimestamp() + colorama.Fore.LIGHTGREEN_EX} Successfully Hooked into {PROCESS_NAME}")
 print(f"{colorama.Fore.LIGHTBLACK_EX + getTimestamp() + colorama.Fore.YELLOW} Loading mods")
 
