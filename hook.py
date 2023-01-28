@@ -1,5 +1,5 @@
 # IMPORTS
-import colorama, pymem, os, pathlib, datetime, re, configparser, win32com.client, inspect
+import colorama, pymem, os, pathlib, datetime, re, configparser, win32com.client, sys
 
 # PREREQUISITES
 colorama.init()
@@ -12,7 +12,7 @@ loaded_mods, mods, on_load_list, missing_files = [], [], [], []
 def exitScript():
 	print(f"{colorama.Fore.LIGHTBLACK_EX + getTimestamp() + colorama.Fore.YELLOW} Press any key to exit")
 	os.system("cmd.exe /C @pause >nul")
-	exit()
+	sys.exit()
 
 def getTimestamp():
 	return f'[{datetime.datetime.now().strftime("%H:%M:%S.%f")}]'
