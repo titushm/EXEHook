@@ -11,7 +11,7 @@ loaded_mods, mods, on_load_list, missing_files = [], [], [], []
 # FUNCTIONS
 def exitScript():
 	print(f"{colorama.Fore.LIGHTBLACK_EX + getTimestamp() + colorama.Fore.YELLOW} Press any key to exit")
-	os.system("@pause >nul")
+	os.system("cmd.exe /C @pause >nul")
 	exit()
 
 def getTimestamp():
@@ -109,4 +109,4 @@ print(f"{colorama.Fore.LIGHTBLACK_EX + getTimestamp() + colorama.Fore.LIGHTGREEN
 hookEvents.loaded()
 
 print(f"{colorama.Fore.LIGHTBLACK_EX + getTimestamp() + colorama.Fore.YELLOW} Press any key to exit")
-os.system("@pause >nul")
+os.system("cmd.exe /C @pause >nul")
