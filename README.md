@@ -2,7 +2,6 @@
 
 # Instructions
 
-* Bullet list
 * Run the requirements.bat file to install the packages
 * Download the zip from github
 * Unzip it into the game directory with the exe file
