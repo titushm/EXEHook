@@ -24,8 +24,6 @@ def restrictImports(code, allowed_imports):
 	imports = ",".join(imports).replace(" ", "")
 	imports = imports.split(',')
 	allowed_imports = json.loads(allowed_imports)
-	print(imports)
-	print(allowed_imports)
 	for module in imports:
 		if module not in allowed_imports:
 			return True
@@ -52,7 +50,10 @@ class hookEvents():
 		on_load_list.append(callback)
 	def loaded():
 		for callback in on_load_list:
-			callback()
+			try:
+				callback()
+			except Exception as error:
+				print(f"{colorama.Fore.LIGHTBLACK_EX + getTimestamp() + colorama.Fore.LIGHTRED_EX} Error in mod {colorama.Fore.LIGHTBLACK_EX}Error: {error}")
 
 print(f"{colorama.Fore.LIGHTBLACK_EX + getTimestamp() + colorama.Fore.LIGHTGREEN_EX} Starting {PROCESS_NAME}")
 try:
@@ -105,7 +106,10 @@ for mod_path in MODS_PATH.glob("*/"): # Loop through every mod in the mods path
 		else:
 			print(f"{colorama.Fore.LIGHTBLACK_EX + getTimestamp() + colorama.Fore.LIGHTBLACK_EX} Loaded mod {colorama.Fore.CYAN + mod_info['name']} {mod_info['version'] + colorama.Fore.LIGHTBLACK_EX} by {colorama.Fore.CYAN + mod_info['author']}")
 			loaded_mods.append(mod_info['name']) # Add a mod to the loaded mods list if the mod load properly
-			exec(mod_code)
+			try:
+				exec(mod_code)
+			except Exception as error:
+				print(f"{colorama.Fore.LIGHTBLACK_EX + getTimestamp() + colorama.Fore.LIGHTRED_EX} Error in mod {mod_info['name']}{colorama.Fore.LIGHTBLACK_EX}Error: {error}")
 mods_amount = len(list(MODS_PATH.glob("*/")))
 loaded_mods_amount = len(loaded_mods)
 print(f"{colorama.Fore.LIGHTBLACK_EX + getTimestamp() + colorama.Fore.LIGHTGREEN_EX} Loaded {colorama.Fore.LIGHTBLACK_EX + str(loaded_mods_amount)}/{str(mods_amount) + colorama.Fore.GREEN} mods {colorama.Fore.LIGHTBLACK_EX + str(loaded_mods)}")
