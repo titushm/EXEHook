@@ -1,4 +1,4 @@
-# GameHook
+# AppHook
 
 # Instructions
 
