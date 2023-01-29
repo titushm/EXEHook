@@ -39,8 +39,8 @@ def restrictCode(code):
 MODS_PATH = pathlib.Path(f"{os.getcwd()}\\hookMods")
 MODS_WATERMARK = colorama.Fore.LIGHTBLACK_EX + getTimestamp() + colorama.Fore.LIGHTBLUE_EX + ' {mod_info.name}' + colorama.Fore.RESET
 SHELL = win32com.client.Dispatch("WScript.Shell")
-GAME_PATH = SHELL.CreateShortCut("game.lnk").Targetpath
-PROCESS_NAME = os.path.basename(GAME_PATH)
+App_PATH = SHELL.CreateShortCut("app.lnk").Targetpath
+PROCESS_NAME = os.path.basename(APP_PATH)
 CONFIG_PROPERTIES = ["name", "author", "description", "version", "imports"]
 
 # EVENTS
@@ -53,14 +53,14 @@ class hookEvents():
 
 print(f"{colorama.Fore.LIGHTBLACK_EX + getTimestamp() + colorama.Fore.LIGHTGREEN_EX} Starting {PROCESS_NAME}")
 try:
-	os.startfile("game.lnk") # Start the game
+	os.startfile("app.lnk") # Start the app
 except Exception as error:
 	print(f"{colorama.Fore.LIGHTBLACK_EX + getTimestamp() + colorama.Fore.LIGHTRED_EX} Failed to start {PROCESS_NAME} {colorama.Fore.LIGHTBLACK_EX}Error: {error}")
 	exitScript()
 print(f"{colorama.Fore.LIGHTBLACK_EX + getTimestamp() + colorama.Fore.LIGHTGREEN_EX} Successfully started {PROCESS_NAME}")
 print(f"{colorama.Fore.LIGHTBLACK_EX + getTimestamp() + colorama.Fore.YELLOW} Hooking into {PROCESS_NAME}")
 try:
-	GAME_MEMORY = pymem.Pymem(PROCESS_NAME) # Attach to the game memory so mods have an api to use
+	APP_MEMORY = pymem.Pymem(PROCESS_NAME) # Attach to the app memory so mods have an api to use
 except:
 	print(f"{colorama.Fore.LIGHTBLACK_EX + getTimestamp() + colorama.Fore.LIGHTRED_EX} Cannot find process {PROCESS_NAME}")
 	exitScript()
