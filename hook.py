@@ -1,5 +1,5 @@
 # IMPORTS
-import colorama, pymem, os, pathlib, datetime, re, configparser, win32com.client, sys
+import colorama, pymem, os, pathlib, datetime, re, configparser, win32com.client, sys, json
 
 # PREREQUISITES
 colorama.init()
@@ -21,8 +21,11 @@ def restrictImports(code, allowed_imports):
 	import_regex = r'(?:^import|(?<=\n)import|(?<=\n)from)\s+(\w+(?:\s*,\s*\w+)*(?:\s+as\s+\w+)*|\w+\s+import\s+(\w+(?:\s*,\s*\w+)*(?:\s+as\s+\w+)*))'
 	imports = re.findall(import_regex, code)
 	imports = [i for sublist in imports for i in sublist if i]
-	imports = ",".join(imports)
+	imports = ",".join(imports).replace(" ", "")
 	imports = imports.split(',')
+	allowed_imports = json.loads(allowed_imports)
+	print(imports)
+	print(allowed_imports)
 	for module in imports:
 		if module not in allowed_imports:
 			return True
@@ -90,7 +93,7 @@ for mod_path in MODS_PATH.glob("*/"): # Loop through every mod in the mods path
 		restricted_code = restrictCode(mod_code)
 		restricted_import = restrictImports(mod_code, config["mod"]["imports"])
 		if restricted_import:
-			print(f"{colorama.Fore.LIGHTBLACK_EX + getTimestamp() + colorama.Fore.LIGHTRED_EX} Skipped loading mod \"{mod_info['name']}\" {colorama.Fore.LIGHTBLACK_EX}Error: Imported a module that not defined in the config imports") # Skip loading a mod if it has an undocumented import
+			print(f"{colorama.Fore.LIGHTBLACK_EX + getTimestamp() + colorama.Fore.LIGHTRED_EX} Skipped loading mod \"{mod_info['name']}\" {colorama.Fore.LIGHTBLACK_EX}Error: Imported a module that is not defined in the config imports") # Skip loading a mod if it has an undocumented import
 			continue
 		if restricted_code:
 			print(f"{colorama.Fore.LIGHTBLACK_EX + getTimestamp() + colorama.Fore.LIGHTRED_EX} Skipped loading mod \"{mod_info['name']}\" {colorama.Fore.LIGHTBLACK_EX}Error: Contained code that could be used to bypass mod safety features") # Skip loading a mod if it has a security concern
