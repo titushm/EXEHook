@@ -39,7 +39,7 @@ def restrictCode(code):
 MODS_PATH = pathlib.Path(f"{os.getcwd()}\\hookMods")
 MODS_WATERMARK = colorama.Fore.LIGHTBLACK_EX + getTimestamp() + colorama.Fore.LIGHTBLUE_EX + ' {mod_info.name}' + colorama.Fore.RESET
 SHELL = win32com.client.Dispatch("WScript.Shell")
-App_PATH = SHELL.CreateShortCut("app.lnk").Targetpath
+APP_PATH = SHELL.CreateShortCut("app.lnk").Targetpath
 PROCESS_NAME = os.path.basename(APP_PATH)
 CONFIG_PROPERTIES = ["name", "author", "description", "version", "imports"]
 
