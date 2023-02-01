@@ -6,7 +6,10 @@ colorama.init()
 config = configparser.ConfigParser()
 
 # VARIABLES
-loaded_mods, mods, on_load_list, missing_files = [], [], [], []
+loaded_mods = mods = missing_files = []
+callback_list = {
+	"onLoad": [],
+}
 
 # FUNCTIONS
 def exitScript():
@@ -47,9 +50,9 @@ CONFIG_PROPERTIES = ["name", "author", "description", "version", "imports"]
 # EVENTS
 class hookEvents():
 	def onLoad(callback):
-		on_load_list.append(callback)
+		callback_list.onLoad.append(callback)
 	def loaded():
-		for callback in on_load_list:
+		for callback in callback_list.onLoad:
 			try:
 				callback()
 			except Exception as error:
@@ -114,6 +117,5 @@ mods_amount = len(list(MODS_PATH.glob("*/")))
 loaded_mods_amount = len(loaded_mods)
 print(f"{colorama.Fore.LIGHTBLACK_EX + getTimestamp() + colorama.Fore.LIGHTGREEN_EX} Loaded {colorama.Fore.LIGHTBLACK_EX + str(loaded_mods_amount)}/{str(mods_amount) + colorama.Fore.GREEN} mods {colorama.Fore.LIGHTBLACK_EX + str(loaded_mods)}")
 hookEvents.loaded()
-
 print(f"{colorama.Fore.LIGHTBLACK_EX + getTimestamp() + colorama.Fore.YELLOW} Press any key to exit")
 os.system("cmd.exe /C @pause >nul")
